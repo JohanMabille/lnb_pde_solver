@@ -4,7 +4,10 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 
+// This implementation is redundant with that in closed_form.hpp / closed_form.cpp
+// Besides it does not provides vectorized version of the functions
 double norm_pdf(const double& x) {
+    // Relying on std::erfc would be more accurate
     return (1.0/(pow(2*M_PI,0.5)))*exp(-0.5*x*x);
 }
 
@@ -25,6 +28,11 @@ double d_j(const int& j, const double& S, const double& K, const double& r, cons
 }
 
 double call_price(const double& S, const double& K, const double& r, const double& v, const double& T) {
+    // This implementation is not stable on the wings and can generate oscillations
+    // A more robust implementation is done in closed_form.cpp, where the formula is plit
+    // into the payoff and the time value.
+    // Also the formula in closed_form.cpp takes the forward instead of the spot, avoiding the need
+    // to pass the rate (but you need to discount the price if the rate is not null).
     return S * norm_cdf(d_j(1, S, K, r, v, T))-K*exp(-r*T) * norm_cdf(d_j(2, S, K, r, v, T));
 
 }

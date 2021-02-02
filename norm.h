@@ -1,3 +1,4 @@
+// Names starting with _ and __ are reserved for the standard
 #ifndef __NORM_H
 #define __NORM_H
 
