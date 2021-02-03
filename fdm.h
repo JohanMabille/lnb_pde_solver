@@ -1,3 +1,4 @@
+// Names starting with _ and __ are reserved for the standard
 #ifndef __FDM_H
 #define __FDM_H
 
@@ -6,6 +7,11 @@
 #include <iostream>
 #include <string>
 
+// Why a base class here instead of working directly
+// with FDMThetaScheme?
+//
+// You can improve this architecture by splitting this class
+// into a pure solver and a grid
 class FDMBase {
  protected:
   ConvectionDiffusionPDE* pde;
@@ -48,6 +54,8 @@ class FDMBase {
 
  public:
   virtual void step_march(const char* filename) = 0;
+
+  // Entity semantics: virtual destructor and deleted copy and move consturctors / assign operators
 };
 
 class FDMThetaScheme : public FDMBase {
@@ -64,6 +72,7 @@ class FDMThetaScheme : public FDMBase {
                    ConvectionDiffusionPDE* _pde);
 
   void step_march(const char* filename);
+  // This is not specific to the PDE and sould be a free method
   void bs_price(const char* filename) ;
 };
 
