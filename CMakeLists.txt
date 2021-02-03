@@ -24,6 +24,11 @@ set(PDE_SOLVER_SRCS
     closed_form.hpp
     closed_form.cpp
     main.cpp
+    fdm.cpp
+    norm.cpp
+    option.cpp
+    payoff.cpp
+    pde.cpp
 )
 
 set(PDE_SOLVER_TARGET pde_solver)

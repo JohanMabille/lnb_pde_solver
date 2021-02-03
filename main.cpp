@@ -31,7 +31,7 @@
 int main(int argc, char **argv) {
   // Create the option parameters
   double K = 100;  // Strike price
-  double r = 0.05;   // Risk-free rate (5%)
+  double r = 0.00;   // Risk-free rate (5%)
   double v = 0.2;    // Volatility of the underlying (20%)
   double T = 1.00;    // One year until expiry
   double S0 = 100;    // Spot value
@@ -39,7 +39,7 @@ int main(int argc, char **argv) {
   // FDM discretisation parameters
   double x_dom_sup = log(S0) + 5 * v  * sqrt(T);       // Spot goes between [log(s0) -+ 5 * v * sqrt(T)]
   double x_dom_inf = log(S0) - 5 * v  * sqrt(T);
-  unsigned long J = 40; 
+  unsigned long J = 40; // That's very small, typical values are rather 500 or even 1000
   double t_dom = T;         // Time period as for the option
   unsigned long N = 20; 
   double theta = 0.5 ;    

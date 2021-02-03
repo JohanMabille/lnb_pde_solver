@@ -113,6 +113,12 @@ void FDMThetaScheme::bs_price(const char* filename) {
 
 void FDMThetaScheme::step_march(const char* filename) { 
   
+    // We usually avoid mixing computations and I/O operations
+    // Indeed I/O operations are really slow compared to
+    // computation.
+    //
+    // A better option is to perform the computation in memory and
+    // let the user decide what to do with the results
   
   std::ofstream fdm_out(filename);
   std::ofstream delta_out("delta.csv");
@@ -127,6 +133,7 @@ void FDMThetaScheme::step_march(const char* filename) {
       fdm_out << x_values[j] << " " << prev_t << " " << old_result[j] << std::endl;
     }
   while(cur_t < t_dom) { 
+      // You solv a backward PDE, so cur_t should decrease from T to 0
     cur_t = prev_t + dt;
 
     calculate_boundary_conditions();

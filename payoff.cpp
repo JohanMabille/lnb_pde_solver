@@ -4,6 +4,9 @@
 #include "payoff.h"
 #include <math.h>
 
+// These methods could be declared
+// with "=default" in the header
+// since they have trivial implementation
 // Constructor and destructor
 PayOff::PayOff()
 {
@@ -21,6 +24,8 @@ PayOff::PayOff()
 
 // Constructor with single strike parameter
 PayOffCall::PayOffCall(const double& _K)
+    // prefere initializer list
+    // : K(_K)
 {
      K = _K;
 }
@@ -31,6 +36,11 @@ PayOffCall::~PayOffCall()
 
 double PayOffCall::operator() (const double& S) const
 {
+    // The Payoff should only computes the payoff
+    // for a given forward, it should not apply transformation
+    // to its argument (the log(S) variable change is specific
+    // to the PDE solver while your payoff could be reused in
+    // other pricers in a pricing library)
   return std::max(exp(S)-K, 0.0); // Standard European call pay-off
 }
 
